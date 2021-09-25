@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Bible.Views.AboutPage"
+             xmlns:vm="clr-namespace:Bible.ViewModels"
+             xmlns:model="clr-namespace:Bible.Models"
+             Title="{Binding Title}">
+    
+    <ContentPage.BindingContext>
+        <vm:AboutViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <RefreshView>
+            <CollectionView SelectionMode="Single" 
+                            ItemsSource="{Binding Verses}" 
+                            ItemsLayout="VerticalGrid, 4" 
+                            SelectionChangedCommand="{Binding SelectionChangedCommand}"
+                            SelectedItem="{Binding Verse}">
+
+                <!--Item Template-->
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Verse">
+                        <Grid Padding="5">
+                            <Label Text="{Binding VerseNumber}" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+
+</ContentPage>

@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Bible.Views.PastorPage"
+             xmlns:viewmodel="clr-namespace:Bible.ViewModels"
+             xmlns:model="clr-namespace:Bible.Models"
+             Title="{Binding Title}"
+             x:Name="Bib">
+
+    <ContentPage.BindingContext>
+        <viewmodel:PastorViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            
+            <Label Text="Service Room" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="Title" Grid.Row="0"/>
+            
+            <CollectionView Grid.Row="1"
+                            HeightRequest="150"
+                            ItemsSource="{Binding Pastors}" 
+                                SelectedItem="{Binding SelectedPastor}"
+                                SelectionMode="Single"
+                                ItemsLayout="VerticalGrid, 4">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Pastor">
+                        <StackLayout>
+                            <Frame CornerRadius="5"  Margin="5" IsClippedToBounds="True" Padding="0" >
+                                <Image HorizontalOptions="Center" VerticalOptions="Center" Aspect="AspectFill"  Source="{Binding ProfilePicture}"/>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <IndicatorView Grid.Row="2" IndicatorSize="16" SelectedIndicatorColor="Red" IndicatorColor="LightGray" IndicatorsShape="Circle" x:Name="indicator"/>
+            <CarouselView IndicatorView="{x:Reference indicator}" Grid.Row="3" ItemsSource="{Binding Pastors}" CurrentItem="{Binding SelectedPastor}" >
+                <CarouselView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Pastor">
+                        <StackLayout>
+                            <Frame Margin="10" CornerRadius="25" BackgroundColor="LightGray">
+                                <StackLayout>
+                                    <Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold"/>
+                                    <Label Text="{Binding Church}" TextColor="{StaticResource Primary}" />
+                                    <Label Text="{Binding Message}" FontSize="18"/>
+                                    <Button Text="Show More" VerticalOptions="CenterAndExpand" Command="{Binding Source={x:Reference Bib}, Path=BindingContext.ViewPastorCommand}"/>
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

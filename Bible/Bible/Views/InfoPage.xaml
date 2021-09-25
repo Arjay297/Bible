@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Bible.Views.InfoPage"
+             xmlns:viewmodel="clr-namespace:Bible.ViewModels">
+
+    <ContentPage.BindingContext>
+        <viewmodel:InfoViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="{Binding Number}" FontSize="20" FontAttributes="Bold"/>
+            <Label Text="{Binding Info}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
